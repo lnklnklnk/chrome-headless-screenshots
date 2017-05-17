@@ -10,6 +10,7 @@ const viewportHeight = argv.viewportHeight || 900;
 const delay = argv.delay || 0;
 const userAgent = argv.userAgent;
 const fullPage = argv.full;
+const outputFilename = argv.output || 'output.png';
 
 // Start the Chrome Debugging Protocol
 CDP(async function(client) {
@@ -61,7 +62,7 @@ CDP(async function(client) {
     setTimeout(async function() {
       const screenshot = await Page.captureScreenshot({format});
       const buffer = new Buffer(screenshot.data, 'base64');
-      file.writeFile('output.png', buffer, 'base64', function(err) {
+      file.writeFile(outputFilename, buffer, 'base64', function(err) {
         if (err) {
           console.error(err);
         } else {
